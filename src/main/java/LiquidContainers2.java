@@ -7,11 +7,10 @@ public class LiquidContainers2 {
         Scanner scan = new Scanner(System.in);
         Container container1 = new Container();
         Container container2 = new Container();
-        
-        System.out.println("First: " + container1);
-        System.out.println("Second: " + container2);
 
         while (true) {
+            System.out.println("First: " + container1);
+            System.out.println("Second: " + container2);
             System.out.print("> ");
 
             String input = scan.nextLine();
@@ -23,34 +22,25 @@ public class LiquidContainers2 {
             int amount = Integer.valueOf(parts[1]);
             if (command.equals("add")) {
                 container1.add(amount);
-                System.out.println("First: " + container1);
-                System.out.println("Second: " + container2);
             } else if (command.equals("move")) {
-                if (amount > 0 && container1.contains() != 0) {
-                    container1.setAmount(container1.contains() - amount);
-                    if (container1.contains() < 0) {
-                        container2.setAmount(amount + container1.contains());
-                        container1.setAmount(0);
-                        System.out.println("First: " + container1);
-                        System.out.println("Second: " + container2);
-                    } else {
-                        System.out.println("First: " + container1);
-                        container2.setAmount(container2.contains() + amount);
-                        if (container2.contains() <= 100) {
-                            System.out.println("Second: " + container2);
-                        } else {
-                            container2.setAmount(100);
-                            System.out.println("Second: " + container2);
-                        }
-                    }
+                if (container1.contains() == 0) {
+                    container2.add(0);
+                } else if (container1.contains() - amount >= 0 && container2.contains() + amount <= 100) {
+                    container1.remove(amount);
+                    container2.add(amount);
+                } else if (container1.contains() < amount) {
+                    container2.add(container1.contains());
+                    container1.add(0);
                 } else {
-                    System.out.println("First: " + container1);
-                    System.out.println("Second: " + container2);
+                    container1.add(0);
+                    container2.add(100);
                 }
             } else if (command.equals("remove")) {
-                container2.remove(amount);
-                System.out.println("First: " + container1);
-                System.out.println("Second: " + container2);
+                if (container2.contains() < amount) {
+                    container2.add(0);
+                } else if (container2.contains() - amount >= 0) {
+                    container2.remove(amount);
+                }
             }
         }
     }

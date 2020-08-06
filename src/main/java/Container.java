@@ -11,24 +11,17 @@ public class Container {
     }
 
     public void add(int amount) {
-        int liq = 0;
-        if (amount > 0) {
-            liq += amount;
-            if (liq <= 100) {
-                this.amount = liq;
-            } else {
-                this.amount = 100;
-            }
+        if (amount > 0 && this.amount + amount <= 100) {
+            this.amount += amount;
+        } else {
+            this.amount = 100;
         }
     }
 
     public void remove(int amount) {
-        int liquid = 0;
-        if (amount > 0) {
-            liquid -= amount;
-            if (liquid > 0) {
-                this.amount = liquid;
-            }
+        if (this.amount - amount > 0) {
+            this.amount -= amount;
+        } else {
             this.amount = 0;
         }
     }
